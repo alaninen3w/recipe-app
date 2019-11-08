@@ -1,7 +1,9 @@
 package raze.springboot.recipeapp.model;
 
-import javax.persistence.*;
+import lombok.Builder;
 
+import javax.persistence.*;
+@Builder
 @Entity
 public class Notes  {
     @Id

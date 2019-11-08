@@ -1,8 +1,10 @@
 package raze.springboot.recipeapp.model;
 
+import lombok.Builder;
+
 import javax.persistence.*;
 import java.util.Set;
-
+@Builder
 @Entity
 public class Recipe  {
 
