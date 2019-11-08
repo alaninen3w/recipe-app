@@ -3,8 +3,8 @@ package raze.springboot.recipeapp.services.jpaimpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import raze.springboot.recipeapp.model.Notes;
 import raze.springboot.recipeapp.repositories.NotesRepository;
 import raze.springboot.recipeapp.services.NotesService;
@@ -23,13 +23,14 @@ class NotesJpaServiceImplTest {
 
     @Mock
     private NotesRepository notesRepository;
-    @InjectMocks
     private NotesService notesService;
 
 
     @BeforeEach
     void setUp() {
-        notesService=new NotesJpaServiceImpl();
+        MockitoAnnotations.initMocks(this);
+
+        notesService=new NotesJpaServiceImpl(notesRepository);
     }
 
     @Test

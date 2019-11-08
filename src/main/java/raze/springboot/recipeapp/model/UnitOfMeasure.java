@@ -1,12 +1,14 @@
 package raze.springboot.recipeapp.model;
 
 import lombok.Builder;
+import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 @Builder
+@ToString
 @Entity
 public class UnitOfMeasure {
     @Id

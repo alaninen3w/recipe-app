@@ -1,10 +1,12 @@
 package raze.springboot.recipeapp.model;
 
 import lombok.Builder;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Set;
 @Builder
+@ToString
 @Entity
 public class Category {
 

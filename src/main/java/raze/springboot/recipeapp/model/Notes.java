@@ -1,9 +1,11 @@
 package raze.springboot.recipeapp.model;
 
 import lombok.Builder;
+import lombok.ToString;
 
 import javax.persistence.*;
 @Builder
+@ToString
 @Entity
 public class Notes  {
     @Id

@@ -3,8 +3,8 @@ package raze.springboot.recipeapp.services.jpaimpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import raze.springboot.recipeapp.model.Recipe;
 import raze.springboot.recipeapp.repositories.RecipeRepository;
 import raze.springboot.recipeapp.services.RecipeService;
@@ -21,16 +21,18 @@ import static org.mockito.Mockito.*;
 
 
 class RecipeJpaServiceImplTest {
-    @InjectMocks
-    private  RecipeService recipeService;
+
 
     @Mock
     private RecipeRepository recipeRepository;
 
+    private  RecipeService recipeService;
 
     @BeforeEach
     void setUp() {
-        recipeService =new RecipeJpaServiceImpl();
+        MockitoAnnotations.initMocks(this);
+
+        recipeService =new RecipeJpaServiceImpl(recipeRepository);
     }
 
     @Test
