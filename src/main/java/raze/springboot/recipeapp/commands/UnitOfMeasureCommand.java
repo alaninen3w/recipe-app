@@ -1,4 +1,4 @@
-package raze.springboot.recipeapp.model.commands;
+package raze.springboot.recipeapp.commands;
 
 import lombok.Getter;
 import lombok.Setter;
