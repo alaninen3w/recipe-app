@@ -8,7 +8,7 @@ import javax.persistence.*;
 public class Notes  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long  Id;
+    private Long id;
 
     @OneToOne
     private Recipe recipe;
@@ -19,11 +19,11 @@ public class Notes  {
 
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        this.id = id;
     }
 
     public Recipe getRecipe() {
