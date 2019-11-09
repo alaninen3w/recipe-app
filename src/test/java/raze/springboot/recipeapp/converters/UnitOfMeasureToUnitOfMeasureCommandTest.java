@@ -48,7 +48,5 @@ class UnitOfMeasureToUnitOfMeasureCommandTest {
         assertEquals(returnedUOMCommand.getDescription(),DESCRIPTION);
 
 
-
-
     }
 }

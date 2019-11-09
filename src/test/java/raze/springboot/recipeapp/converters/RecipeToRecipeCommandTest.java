@@ -16,7 +16,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class RecipeToRecipeCommandTest {
     private static final Long RECIPE_ID = 1L;
@@ -129,7 +129,14 @@ class RecipeToRecipeCommandTest {
         assertEquals(returnedRecipeCommand.getIngredients().size(),2);
         assertEquals(returnedRecipeCommand.getCategories().size(),2);
 
+        verify(notesToNotesCommand,times(1))
+                .convert(any());
 
+        verify(ingredientToIngredientCommand , times(2))
+                .convert(any());
+
+        verify(categoryToCategoryCommand,times(2))
+                .convert(any());
 
 
 

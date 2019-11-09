@@ -4,8 +4,9 @@ import lombok.Builder;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
-@Builder
+
 @ToString
 @Entity
 public class Recipe  {
@@ -25,13 +26,13 @@ public class Recipe  {
     private Notes notes;
 
     @OneToMany(cascade = CascadeType.ALL , mappedBy = "recipe")
-    private Set<Ingredient> ingredients;
+    private Set<Ingredient> ingredients = new HashSet<>();
 
     @ManyToMany
     @JoinTable(name = "recipe_category",
             joinColumns = @JoinColumn(name = "recipe_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private Set<Category> categories;
+    private Set<Category> categories = new HashSet<>();
 
     @Enumerated(EnumType.STRING)
     private Difficulty difficulty;
@@ -41,6 +42,26 @@ public class Recipe  {
     private Byte[] image;
 
 
+    @Builder
+    public Recipe(Long id,String description, Integer prepTime
+            , Integer cookTime, Integer servings, String source
+            , String url, String directions, Notes notes
+            , Set<Ingredient> ingredients, Set<Category> categories
+            , Difficulty difficulty, Byte[] image) {
+        this.id = id;
+        this.description = description;
+        this.prepTime = prepTime;
+        this.cookTime = cookTime;
+        this.servings = servings;
+        this.source = source;
+        this.url = url;
+        this.directions = directions;
+        this.notes = notes;
+        this.difficulty = difficulty;
+        this.image = image;
+        if(ingredients != null) this.ingredients.addAll(ingredients);
+        if(categories != null) this.categories.addAll(categories);
+    }
 
     public Long getId() {
         return id;
