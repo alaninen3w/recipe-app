@@ -1,7 +1,11 @@
 package raze.springboot.recipeapp.services.jpaimpl;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import raze.springboot.recipeapp.commands.RecipeCommand;
+import raze.springboot.recipeapp.converters.RecipeCommandToRecipe;
+import raze.springboot.recipeapp.converters.RecipeToRecipeCommand;
 import raze.springboot.recipeapp.model.Recipe;
 import raze.springboot.recipeapp.repositories.RecipeRepository;
 import raze.springboot.recipeapp.services.RecipeService;
@@ -13,9 +17,18 @@ import java.util.Set;
 @Service
 public class RecipeJpaServiceImpl implements RecipeService {
     private final RecipeRepository recipeRepository;
+    private final RecipeToRecipeCommand recipeToRecipeCommand;
+    private final RecipeCommandToRecipe recipeCommandToRecipe;
 
-    public RecipeJpaServiceImpl(RecipeRepository recipeRepository) {
+
+    @Autowired
+    public RecipeJpaServiceImpl(RecipeRepository recipeRepository
+            , RecipeToRecipeCommand recipeToRecipeCommand
+            , RecipeCommandToRecipe recipeCommandToRecipe) {
+
         this.recipeRepository = recipeRepository;
+        this.recipeToRecipeCommand = recipeToRecipeCommand;
+        this.recipeCommandToRecipe = recipeCommandToRecipe;
     }
 
     @Override
@@ -51,5 +64,15 @@ public class RecipeJpaServiceImpl implements RecipeService {
     @Override
     public void delete(Recipe object) {
             recipeRepository.delete(object);
+    }
+
+    @Override
+    public RecipeCommand saveRecipeCommand(RecipeCommand recipeCommand) {
+        if(recipeCommand == null) return null;
+        log.debug("saving  recipe command id : " + recipeCommand.getId());
+       Recipe recipe = recipeCommandToRecipe.convert(recipeCommand);
+
+       Recipe returnedRecipe = recipeRepository.save(recipe);
+        return recipeToRecipeCommand.convert(returnedRecipe);
     }
 }

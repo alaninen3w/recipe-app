@@ -1,6 +1,8 @@
 package raze.springboot.recipeapp.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.Entity;
@@ -9,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 @Builder
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class UnitOfMeasure {
     @Id

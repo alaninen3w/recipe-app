@@ -5,6 +5,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import raze.springboot.recipeapp.converters.RecipeCommandToRecipe;
+import raze.springboot.recipeapp.converters.RecipeToRecipeCommand;
+import raze.springboot.recipeapp.model.Difficulty;
 import raze.springboot.recipeapp.model.Recipe;
 import raze.springboot.recipeapp.repositories.RecipeRepository;
 import raze.springboot.recipeapp.services.RecipeService;
@@ -21,10 +24,30 @@ import static org.mockito.Mockito.*;
 
 
 class RecipeJpaServiceImplTest {
+    private static final Long RECIPE_ID = 1L;
+    private static final Integer COOK_TIME = 2;
+    private static final Integer PREP_TIME = 3;
+    private static final String DESCRIPTION = "my recipe";
+    private static final String DIRECTION = "my direction ";
+    private static final Difficulty DIFFICULTY=Difficulty.HARD;
+    private static final Integer SERVING =4;
+    private static final String SOURCE = "my source";
+    private static final String URL = "my url";
+    private static final Long CATEGORY_ID = 1L;
+    private static final Long CATEGORY_ID2 = 2L;
+    private static final Long INGREDIENT_ID = 1L;
+    private static final Long INGREDIENT_ID2 = 2L;
+    private static final Long NOTES_ID = 1L;
 
 
     @Mock
     private RecipeRepository recipeRepository;
+
+    @Mock
+    RecipeToRecipeCommand recipeToRecipeCommand;
+    @Mock
+    RecipeCommandToRecipe recipeCommandToRecipe;
+
 
     private  RecipeService recipeService;
 
@@ -32,7 +55,8 @@ class RecipeJpaServiceImplTest {
     void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        recipeService =new RecipeJpaServiceImpl(recipeRepository);
+
+        recipeService =new RecipeJpaServiceImpl(recipeRepository, recipeToRecipeCommand, recipeCommandToRecipe);
     }
 
     @Test
@@ -108,6 +132,9 @@ class RecipeJpaServiceImplTest {
 
 
     }
+
+
+
 
     @Test
     void delete() {

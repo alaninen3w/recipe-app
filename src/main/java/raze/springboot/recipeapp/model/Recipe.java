@@ -1,6 +1,7 @@
 package raze.springboot.recipeapp.model;
 
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @ToString
+@NoArgsConstructor
 @Entity
 public class Recipe  {
 
