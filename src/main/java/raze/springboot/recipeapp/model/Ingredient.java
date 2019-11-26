@@ -1,19 +1,16 @@
 package raze.springboot.recipeapp.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Objects;
 
 @Builder
-@ToString
-@AllArgsConstructor
+@ToString(exclude = {"recipe" , "uom"})
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@EqualsAndHashCode(exclude = {"recipe"})
 public class Ingredient {
 
     @Id
@@ -28,6 +25,12 @@ public class Ingredient {
     @OneToOne(fetch = FetchType.EAGER)
     private  UnitOfMeasure uom;
 
+    public Ingredient(String description, BigDecimal amount, Recipe recipe, UnitOfMeasure uom) {
+        this.description = description;
+        this.amount = amount;
+        this.recipe = recipe;
+        this.uom = uom;
+    }
 
     public Long getId() {
         return id;
@@ -69,16 +72,5 @@ public class Ingredient {
         this.uom = uom;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Ingredient that = (Ingredient) o;
-        return id.equals(that.id);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
 }

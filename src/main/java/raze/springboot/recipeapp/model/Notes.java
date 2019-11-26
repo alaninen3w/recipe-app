@@ -7,7 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 @Builder
-@ToString
+@ToString(exclude = {"recipe"})
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity

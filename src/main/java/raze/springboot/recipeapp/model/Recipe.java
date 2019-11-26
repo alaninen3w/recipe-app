@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@ToString
+@ToString(exclude = {"ingredients" , "categories" , "image"})
 @NoArgsConstructor
 @Entity
 public class Recipe  {
@@ -22,6 +22,8 @@ public class Recipe  {
     private Integer servings;
     private String source;
     private String url;
+
+    @Lob
     private String directions;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -168,6 +170,15 @@ public class Recipe  {
     public void setImage(Byte[] image) {
         this.image = image;
     }
+
+
+    public void addIngredient(Ingredient ingredient){
+        if(ingredient != null)
+            this.ingredients.add(ingredient);
+    }
+
+
+
 
 
 
