@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="container ">
+    <table class="table table-hover table-responsive ">
+        <thead >
+        <tr class="bg-primary" >
+            <th>ID</th>
+            <th>Description</th>
+            <th>View</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+
+        <tr th:remove="all">
+            <td>Recipe ID</td>
+            <td>My Description</td>
+            <td><a href="#">View Recipe</a></td>
+            <td><a href="#">Update Recipe</a></td>
+            <td><a href="#">Delete Recipe</a></td>
+        </tr>
+        <tr th:remove="all">
+            <td>Recipe ID</td>
+            <td>My Description</td>
+            <td><a href="#">View Recipe</a></td>
+            <td><a href="#">Update Recipe</a></td>
+            <td><a href="#">Delete Recipe</a></td>
+        </tr>
+        <tr th:each="recipe : ${recipes}">
+            <td th:text="${recipe.id}">Recipe ID</td>
+            <td th:text="${recipe.description}">My Description</td>
+            <td ><a href="@{'/recipe/' + ${recipe.id} + '/show'}">View</a></td>
+            <td ><a href="@{'/recipe/' + ${recipe.id} + '/update'}">Update</a></td>
+            <td ><a href="@{'/recipe/' + ${recipe.id} + '/delete'}">Delete</a></td>
+        </tr>
+
+    </table>
+</div>
+</body>
+</html>
