@@ -216,12 +216,12 @@ class IngredientControllerTest {
 
         //when
         //then
-        mockMvc.perform(get("/recipe/3/ingredient/2/delete"))
+        mockMvc.perform(get("/recipe/2/ingredient/2/delete"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("/recipe/ingredient/list"));
+                .andExpect(view().name("redirect:/recipe/2/ingredients"));
 
-        verify(recipeService , times(1))
-                .saveRecipeCommand(any());
+       verify(ingredientService ,times(1))
+               .deleteById(anyLong(),anyLong());
 
 
     }
