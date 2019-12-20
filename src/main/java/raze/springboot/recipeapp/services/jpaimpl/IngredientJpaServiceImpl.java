@@ -82,6 +82,9 @@ public class IngredientJpaServiceImpl implements IngredientService {
         Optional<Recipe> optionalRecipe =
                 recipeRepository.findById(ingredientCommand.getRecipe_id());
 
+        Ingredient newIngredient = null;
+        Ingredient ingredientToUpdate = null;
+
         if(optionalRecipe.isPresent()){
             Recipe recipe = optionalRecipe.get();
             Optional<Ingredient> optionalIngredient =
@@ -91,30 +94,32 @@ public class IngredientJpaServiceImpl implements IngredientService {
                             .equals(ingredientCommand.getId()))
                     .findFirst();
             if(optionalIngredient.isPresent()){
-                Ingredient ingredientToUpdate = optionalIngredient.get();
+                 ingredientToUpdate = optionalIngredient.get();
                 ingredientToUpdate.setDescription(ingredientCommand.getDescription());
                 ingredientToUpdate.setAmount(ingredientCommand.getAmount());
                 ingredientToUpdate.setUom(unitOfMeasureRepository
-                        .findById(ingredientCommand.getId())
+                        .findById(ingredientCommand.getUomCommand().getId())
                         .orElseThrow(() -> new RuntimeException("UOM Not Found")));
-                ingredientRepository.save(ingredientToUpdate);
+
+                ingredientRepository.save(ingredientToUpdate);  //todo research
 
             }else{
-                Ingredient newIngredient =
+                 newIngredient =
                         ingredientCommandToIngredient.convert(ingredientCommand);
-                ingredientRepository.save(newIngredient);
+                ingredientRepository.save(newIngredient);  //todo research
                 recipe.addIngredient(newIngredient);
              }
             Recipe savedRecipe = recipeRepository.save(recipe);
+            Ingredient savedIngredient =  newIngredient == null ? ingredientToUpdate : newIngredient;
+//            Optional<Ingredient> savedIngredient =
+//                     savedRecipe.getIngredients()
+//                    .stream()
+//                    .filter(ingredient -> ingredient.getId().equals(ingredientCommand.getId()))
+//                    .findFirst();
 
-            Optional<Ingredient> savedIngredient =
-                     savedRecipe.getIngredients()
-                    .stream()
-                    .filter(ingredient -> ingredient.getId().equals(ingredientCommand.getId()))
-                    .findFirst();
-
-
-            return  ingredientToIngredientCommand.convert(savedIngredient.get());
+            return  ingredientToIngredientCommand.convert(savedIngredient);
+//                    .convert(savedIngredient.orElse
+//                            (savedRecipe.getIngredients().stream().findFirst().get()));
 
         }else{
             throw new RuntimeException("Recipe not found");

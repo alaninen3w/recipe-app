@@ -47,7 +47,7 @@ public class RecipeController {
     public String saveRecipe(@ModelAttribute RecipeCommand recipeCommand ){
         recipeService.saveRecipeCommand(recipeCommand);
 
-        return "redirect:/recipe/" + recipeCommand.getId() + "/show";
+        return "redirect:/recipe/" + recipeCommand.getId().toString() + "/show";
     }
 
     @GetMapping({"/recipe/{id}/update"})
